@@ -1,0 +1,77 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+html {
+  font-size: 62.5%; }
+
+body {
+  font-size: 1.6rem;
+  line-height: 1.2;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  color: mintcream; }
+
+.container {
+  background: url("img/afternoon.jpg"), linear-gradient(to left top, #135518, #060e16);
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 0 3rem;
+  position: relative; }
+  .container > :not(:last-child) {
+    padding-bottom: 1rem;
+    text-shadow: 0 2px 0.8rem #050505; }
+
+.time {
+  font-size: 10rem;
+  font-weight: bold; }
+
+.greeting-header {
+  font-size: 3.5rem;
+  color: mintcream; }
+
+.plans {
+  color: mintcream;
+  font-weight: 900; }
+
+.name {
+  font-size: 2.5rem;
+  color: #1136db;
+  text-shadow: 0 2px 0.8rem white; }
+
+.todo-container {
+  position: absolute;
+  right: 5rem;
+  top: 5rem;
+  color: #060e16;
+  background-color: #fff;
+  padding: 2rem 4rem;
+  border-radius: 1rem; }
+
+@media (max-width: 640px) {
+  html {
+    font-size: 45%; } }
+
+@media (max-width: 460px) {
+  .time {
+    font-size: 7rem; }
+  .greeting-header {
+    font-size: 2.5rem; } }
+
+@media (max-width: 334px) {
+  .time {
+    font-size: 5rem; } }
+
+@media (max-width: 319px) {
+  .name {
+    display: block; } }
+
+@media (max-width: 252px) {
+  .time {
+    font-size: 3.3rem; }
+  .greeting-header .name {
+    font-size: 1.7rem; } }
