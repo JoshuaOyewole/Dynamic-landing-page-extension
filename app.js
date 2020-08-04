@@ -1,4 +1,5 @@
 //DOM
+
 let container = document.querySelector('.container');
 let h = document.querySelector('.h');
 let m = document.querySelector('.m');
@@ -18,6 +19,7 @@ let dynamicTime = (() =>{
         console.log(getHour);
         if(getHour >=22){
             greet = 'What a Lovely Night!';
+            container.style.background = 'url(img/night.jpg)';
         }
         else if(getHour >=16){
             greet = 'Good Evening!'
@@ -39,12 +41,10 @@ let dynamicTime = (() =>{
     m.innerText = getMin< 10 ? '0'+ getMin: getMin;
     s.innerText =  getSec < 10 ? '0'+ getSec : getSec;
     greetingMode.innerText = greet;
-    
+
         }, 1000);
 
 //DYNAMIC BACKGROUND
 
 })();
-
-
 
