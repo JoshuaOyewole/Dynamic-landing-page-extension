@@ -39,7 +39,6 @@ body {
   font-weight: 900; }
 
 .name {
-  /*     text-shadow: 0 2px .8rem rgb(5, 5, 5); */
   font-size: 3.2rem;
   color: #fefeff;
   text-shadow: none;
@@ -57,6 +56,26 @@ body {
   background-color: #fff;
   padding: 2rem 4rem;
   border-radius: 1rem; }
+
+.add-btn {
+  padding: .4rem 1.4rem;
+  border-radius: 2rem;
+  border: none;
+  font-weight: bold; }
+
+.add-btn:focus {
+  outline: none; }
+
+.todo-field {
+  padding: .3rem .5rem;
+  border: none;
+  background-color: transparent;
+  color: #fefeff;
+  font-size: 1.6rem;
+  border-bottom: 1px solid #ebe3e3; }
+
+.todo-field:focus {
+  outline: none; }
 
 @media (max-width: 640px) {
   html {
