@@ -71,11 +71,25 @@ body {
   border: none;
   background-color: transparent;
   color: #fefeff;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   border-bottom: 1px solid #ebe3e3; }
 
 .todo-field:focus {
   outline: none; }
+
+ol li {
+  padding: .3rem; }
+
+.delete {
+  margin-left: 3rem;
+  background-color: #5f5858;
+  color: white;
+  border: none;
+  padding: .1rem .7rem; }
+
+@media (max-width: 780px) {
+  .todo-container {
+    width: 60%; } }
 
 @media (max-width: 640px) {
   html {

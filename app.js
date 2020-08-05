@@ -1,8 +1,3 @@
-let field = document.createElement('h1');
-field.classList.add('todo-field');
-field.textContent='Hello world';
-console.log(field);
-document.querySelector('.container').insertAdjacentHTML("beforeend", field);
 
 //DOM
 let container = document.querySelector('.container');
@@ -13,7 +8,8 @@ let gm = document.querySelector('.gm');
 let greetingMode = document.querySelector('.greeting-mode');
 let name = document.querySelector('.name');
 let addTodo = document.querySelector('.add-btn');
-
+const todoField = document.querySelector('.add-todo');
+const todoContainer = document.querySelector('.todo-container');
 let greet = 'Good Day!';
 let value = '';
 
@@ -81,17 +77,26 @@ name.addEventListener('blur', (e) =>{
 
 //EVENT LISTENERS FOR ADD TODO
 addTodo.addEventListener('click', (e) =>{
-   /* const field = document.createElement('input');
+    const field = document.createElement('input');
     field.classList.add('todo-field');
-    field.setAttribute('type', 'text')
-    console.log(field);
-     container.insertAdjacentHTML('beforeend', field);  */
+    field.setAttribute('type', 'text');
+    todoField.appendChild(field);
+   /*  container.insertBefore(field,container.lastChild); */
 });
+   const orderedList = document.createElement('ol'); 
+   todoContainer.insertAdjacentElement('beforeend', orderedList);
 
-let el1 = document.createElement('div');
-let head = document.createElement('h1');
-head.textContent = 'Welcome to Orisfina Computer Institute';
-let para = document.createElement('p');
-para.textContent = 'This is the paragraph of this long letterheaded';
-el1.appendChild(head); el1.appendChild(para);
-container.innerHTML =el1;
+todoField.addEventListener('keypress', (e) =>{
+    e.target.focus(); 
+if(e.keyCode == 13 || e.which ==13){
+    const list = document.createElement('li');
+    list.textContent = e.target.value;
+    const delBtn = document.createElement('button');
+    delBtn.classList.add('delete');
+    delBtn.textContent = 'x';
+    list.appendChild(delBtn);
+    orderedList.appendChild(list);
+    e.target.value = '';
+}
+})
+
