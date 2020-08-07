@@ -17,6 +17,16 @@ let value = '';
 name.value = localStorage.getItem('name'); 
 /* value = name.value; */
 
+ //FUNCTION FOR CREATING LIST ELEMENT
+ const listMaker = (text) =>{
+    const list = document.createElement('li');
+    const delBtn = document.createElement('button');
+    delBtn.classList.add('delete');
+    delBtn.textContent = 'x';
+    list.textContent = text;
+    list.appendChild(delBtn);
+    orderedList.appendChild(list);
+  }
 
 //DYNAMIC TIME
 let dynamicTime = (() =>{
@@ -52,20 +62,20 @@ let dynamicTime = (() =>{
 
         }, 1000);
 
-//DYNAMIC BACKGROUND
-
 })();
 
 
-//EVENT LISTENERS FOR GETTING NAMES ENTERED
+//EVENT LISTENERS FOR FOCUS INPUT
 name.addEventListener('focus', (e) =>{
     e.target.value = ' ';
     e.target.style.borderBottom ='.1rem solid rgb(254, 254, 255)'; 
 });
 
+//EVENT LISTENERS FOR GETTING NAME ENTERED AND STORING INTO LOCALSTORAGE
 name.addEventListener('blur', (e) =>{
     e.target.style.borderBottom ='0';
     if(name.value == '' || name.value == ' '){
+        //IF INPUT IS EMPTY, PREVIOUS VALUE SHOULD BE USED
         value = localStorage.getItem('name');
         name.value = value;
     }
@@ -81,22 +91,50 @@ addTodo.addEventListener('click', (e) =>{
     field.classList.add('todo-field');
     field.setAttribute('type', 'text');
     todoField.appendChild(field);
-   /*  container.insertBefore(field,container.lastChild); */
 });
+
    const orderedList = document.createElement('ol'); 
    todoContainer.insertAdjacentElement('beforeend', orderedList);
 
-todoField.addEventListener('keypress', (e) =>{
-    e.target.focus(); 
+
+    const todo = localStorage.getItem('items'); //STRING
+//CHECK IF ANY DATA HAS BEEN ADDED TO THE LOCALSTORAGE
+    if(localStorage.length > 0){
+        //CHECK IF TODO EXIST 
+        if(JSON.parse(todo) == null){
+            var itemAray = [];
+        }
+        else{
+            var itemAray = JSON.parse(todo); 
+          }
+       
+    }
+        else{
+            var itemAray = []; 
+        }  
+   
+
+    if(todo !== null){
+        const todoArr = JSON.parse(todo);
+        todoArr.forEach((cur) => {
+         listMaker(cur); 
+   })
+    }
+    
+
+//EVENT LISTENERS FOR ADDING GOALS
+    todoField.addEventListener('keypress', (e) =>{
+   
 if(e.keyCode == 13 || e.which ==13){
-    const list = document.createElement('li');
-    list.textContent = e.target.value;
-    const delBtn = document.createElement('button');
-    delBtn.classList.add('delete');
-    delBtn.textContent = 'x';
-    list.appendChild(delBtn);
-    orderedList.appendChild(list);
+
+    itemAray.push(e.target.value);
+    localStorage.setItem('items', JSON.stringify(itemAray))
+    listMaker(e.target.value);
     e.target.value = '';
+    e.target.focus(); 
 }
 })
 
+document.addEventListener('click', (e)=>{
+    console.log(e.target.parentNode);
+})
