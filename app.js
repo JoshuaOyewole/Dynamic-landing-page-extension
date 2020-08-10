@@ -17,6 +17,19 @@ let value = '';
 name.value = localStorage.getItem('name'); 
 /* value = name.value; */
 
+
+//ID FUNCTION
+var getID = ()=>{
+    if(itemAray.length > 0){
+        var ID = (itemAray.length -1) + 1;
+    }
+    else{
+        var ID = 0;
+    }
+    return ID;
+}
+
+
  //FUNCTION FOR CREATING LIST ELEMENT
  const listMaker = (text) =>{
     const list = document.createElement('li');
@@ -24,6 +37,7 @@ name.value = localStorage.getItem('name');
     delBtn.classList.add('delete');
     delBtn.textContent = 'x';
     list.textContent = text;
+     list.id ='id-' + getID();  
     list.appendChild(delBtn);
     orderedList.appendChild(list);
   }
@@ -85,7 +99,7 @@ name.addEventListener('blur', (e) =>{
     }
 }); 
 
-//EVENT LISTENERS FOR ADD TODO
+//EVENT LISTENERS FOR ADD TODO INPUT
 addTodo.addEventListener('click', (e) =>{
     const field = document.createElement('input');
     field.classList.add('todo-field');
@@ -96,10 +110,10 @@ addTodo.addEventListener('click', (e) =>{
    const orderedList = document.createElement('ol'); 
    todoContainer.insertAdjacentElement('beforeend', orderedList);
 
-
     const todo = localStorage.getItem('items'); //STRING
 //CHECK IF ANY DATA HAS BEEN ADDED TO THE LOCALSTORAGE
-    if(localStorage.length > 0){
+   
+if(localStorage.length > 0){
         //CHECK IF TODO EXIST 
         if(JSON.parse(todo) == null){
             var itemAray = [];
@@ -116,8 +130,16 @@ addTodo.addEventListener('click', (e) =>{
 
     if(todo !== null){
         const todoArr = JSON.parse(todo);
-        todoArr.forEach((cur) => {
-         listMaker(cur); 
+        todoArr.forEach((cur, index) => {
+               
+    const list = document.createElement('li');
+    const delBtn = document.createElement('button');
+    delBtn.classList.add('delete');
+    delBtn.textContent = 'x';
+    list.textContent = cur;
+     list.id ='id-' + index;  
+    list.appendChild(delBtn);
+    orderedList.appendChild(list); 
    })
     }
     
@@ -126,15 +148,32 @@ addTodo.addEventListener('click', (e) =>{
     todoField.addEventListener('keypress', (e) =>{
    
 if(e.keyCode == 13 || e.which ==13){
-
+    listMaker(e.target.value);
     itemAray.push(e.target.value);
     localStorage.setItem('items', JSON.stringify(itemAray))
-    listMaker(e.target.value);
     e.target.value = '';
     e.target.focus(); 
 }
 })
 
-document.addEventListener('click', (e)=>{
-    console.log(e.target.parentNode);
+
+//DELETING TODO
+todoContainer.addEventListener('click', (e)=>{
+    //GET THE UNIQUE KEY OF THE TODO
+    let getID = e.target.parentNode.id;
+    let IDarray = getID.split('-');
+    let ID = IDarray[1];
+    let getTODOarray = localStorage.getItem('items');
+    let newArray = JSON.parse(getTODOarray);
+    let sliceOUT = newArray.splice((ID), 1); 
+    let newTODOStrings = JSON.stringify(newArray);
+    let storeNewTodos = localStorage.setItem('items',newTODOStrings); 
+    const listSelectedParent =  e.target.parentNode.parentNode;
+    const listSelected =  e.target.parentNode;
+    listSelectedParent.removeChild(listSelected);
 })
+
+
+
+//CONVERT YOUR ARRAY BACK TO STRING
+//INSERT THE STRING INTO LOCALSTORAGE BACK
